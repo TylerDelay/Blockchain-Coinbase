@@ -5,11 +5,16 @@ const Promos = () => {
     return <Wrapper>
         <OfferCard>
             <Title>Yield earned</Title>
-            <Description>test</Description>
+            <Description>Earn up to 12.94% APY on your crypto</Description>
+            <Placeholder></Placeholder>
+            <Additional style={{ fontSize: '1.5rem' }}> $0.000088 <span>12.94% APY</span></Additional>
         </OfferCard>
 
         <OfferCard>
             <Title>Learn and Earn</Title>
+            <Description>Earn up to 12.94% APY on your crypto</Description>
+            <Placeholder></Placeholder>
+            <Additional style={{ color: '#3773f5' }}> Verify Identity </Additional>
          </OfferCard>
     </Wrapper>
 }

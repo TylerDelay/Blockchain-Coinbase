@@ -1,81 +1,85 @@
 import React from "react";
 import styled from "styled-components";
-import {BsThreeDotsVertical} from 'react-icons/bs'
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { coins } from "../static/coins";
-import Coin from './Coin'
+import Coin from "./Coin";
+import BalanceChart from "./BalanceChart";
 
 const Portfolio = () => {
-return(
-<Wrapper>
-<Content>
-<PortfolioTable>
-<TableItem>
-    <Title>Your Assets</Title>
-</TableItem>
-<Divider />
-<Table>
-    <TableItem>
-        <TableRow>
-            <div style={{ flex: 3 }}>Name</div>
-            <div style={{ flex: 2 }}>Balance</div>
-            <div style={{ flex: 1 }}>Price</div>
-            <div style={{ flex: 1 }}>Allocation</div>
-            <div style={{ flex: 0 }}>
-                <BsThreeDotsVertical/>
+  return (
+    <Wrapper>
+      <Content>
+          <BalanceChart />
+        <PortfolioTable>
+          <TableItem>
+            <Title>Your Assets</Title>
+          </TableItem>
+          <Divider />
+          <Table>
+            <TableItem>
+              <TableRow>
+                <div style={{ flex: 3 }}>Name</div>
+                <div style={{ flex: 2 }}>Balance</div>
+                <div style={{ flex: 1 }}>Price</div>
+                <div style={{ flex: 1 }}>Allocation</div>
+                <div style={{ flex: 0 }}>
+                  <BsThreeDotsVertical />
+                </div>
+              </TableRow>
+            </TableItem>
+            <Divider />
+            <div>
+              {coins.map((coin) => (
+                // eslint-disable-next-line react/jsx-key
+                <div>
+                  <Coin coin={coin} />
+                  <Divider />
+                </div>
+              ))}
             </div>
-        </TableRow>
-    </TableItem>
-    <Divider />
-    <div>{coins.map(coin => (
-        // eslint-disable-next-line react/jsx-key
-        <div>
-            <Coin coin={coin} />
-            <Divider/>
-        </div>
-    ))}</div>
-</Table>
-</PortfolioTable>
-</Content>
-</Wrapper>
-)
-}
+          </Table>
+        </PortfolioTable>
+      </Content>
+    </Wrapper>
+  );
+};
 
-export default Portfolio
+export default Portfolio;
 
 const Wrapper = styled.div`
-flex: 1;
-display: flex;
-justify-content: center;
-`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+`;
 
 const Content = styled.div`
-width: 100%;
-max-width: 1000px;
-padding: 2 rem 1 rem;
-`
+  width: 100%;
+  max-width: 1000px;
+  padding: 2 rem 1 rem;
+`;
 const PortfolioTable = styled.div`
-margin-top: 1rem;
-border: 1px solid @282b2f;
-`
+  margin-top: 1rem;
+  border: 1px solid @282b2f;
+`;
 const Table = styled.div`
-width: 100%;
-`
+  width: 100%;
+`;
 const TableRow = styled.div`
-width: 100%;
-display: flex;
-justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 
-& > th {
-text-align: left;
-}
-`
+  & > th {
+    text-align: left;
+  }
+`;
 const TableItem = styled.div`
-padding: 1rem 2 rem;
-`
+  padding: 1rem 2 rem;
+`;
 const Divider = styled.div`
-border-bottom: 1px solid #282b2f;
-`
+  border-bottom: 1px solid #282b2f;
+`;
 const Title = styled.div`
-font-size: 1.5rem;
-font-weight: 600;
-`
+  font-size: 1.5rem;
+  font-weight: 600;
+`;

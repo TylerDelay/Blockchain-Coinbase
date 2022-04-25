@@ -22,7 +22,6 @@ const Portfolio = () => {
               </div>
               <BalanceChart></BalanceChart>
           </Chart>
-          <BalanceChart />
         <PortfolioTable>
           <TableItem>
             <Title>Your Assets</Title>

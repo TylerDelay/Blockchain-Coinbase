@@ -18,7 +18,7 @@ const Portfolio = () => {
                 console.log(error)
             }
         }
-        getCoins();
+        return getCoins();
     }, [])
   return (
     <Wrapper>

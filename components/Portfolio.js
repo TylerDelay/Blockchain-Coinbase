@@ -5,21 +5,40 @@ import { coins } from "../static/coins";
 import Coin from "./Coin";
 import BalanceChart from "./BalanceChart";
 
-const Portfolio = () => {
-    const [sanityTokens, setSanityTokens] = useState([])
-    useEffect(() => {
-        const getCoins = async () => {
-            try{
-                const coins= await fetch("https://wmv44rtd.api.sanity.io/v1/data/query/production?query=*%5B_type%3D%3D%27coins%27%5D%20%7B%0A%20%20name%2C%0A%20%20usdPrice%2C%0A%20%20contractAddress%2C%0A%20%20symbol%2C%0A%20%20logo%0A%7D#")
-                const tempSanityTokens = await coins.json();
-                setSanityTokens(tempSanityTokens.result)
-                console.log(tempSanityTokens.result)
-            }catch (error) {
-                console.log(error)
-            }
-        }
-        return getCoins();
-    }, [])
+
+const Portfolio = ({thirdWebTokens, sanityTokens, walletAddress}) => {
+    const [walletBalance, setWalletBalance] = useState(0)
+    //retunrs a promise
+//    thirdWebTokens[0]
+//    .balanceOf(walletAddress)
+//    .then(balance => console.log(Number(balance.displayValue) * 3100))
+
+const tokenToUSD = {}
+
+for(const token of sanityTokens) {
+    tokenToUSD[token.contractAddress] = Number(token.usdPrice)
+}
+
+console.table(tokenToUSD)
+
+useEffect(() => {
+  const calculateTotalBalance = async () => {
+      const totalBalance = await Promise.all(
+          thirdWebTokens.map(async token => {
+              const balance = await token.balanceOf(walletAddress)
+              return Number(balance.displayValue) * tokenToUSD[token.address]
+          })
+      )
+      console.log('Total Balance Tyler: ',totalBalance)
+      console.log('Total Balance Reduced: ', totalBalance.reduce((acc, curr) => acc + curr, 0))
+      setWalletBalance(totalBalance.reduce((acc, curr) => acc + curr, 0))
+  }
+calculateTotalBalance()
+}, [thirdWebTokens, sanityTokens])
+
+
+
+   //Convert all of my tokens to USD
   return (
     <Wrapper>
       <Content>
@@ -29,8 +48,8 @@ const Portfolio = () => {
                       <BalanceTitle>Portfolio Balance</BalanceTitle>
                       <BalanceValue>
                           {'$'}
-                          {/* walletBalance.toLocaleString()*/}
-                          58,000
+                          {walletBalance.toLocaleString()}
+                          {/* 58,000 */}
                       </BalanceValue>
                   </Balance>
               </div>
